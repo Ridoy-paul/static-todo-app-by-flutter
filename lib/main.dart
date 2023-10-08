@@ -17,7 +17,7 @@ class _ToDoAppState extends State<ToDoApp> {
       theme: ThemeData(
         primarySwatch: Colors.deepOrange,
       ),
-      home: HomePage(),
+      home: const HomePage(),
     );
   }
 }
@@ -35,11 +35,11 @@ class _HomePageState extends State<HomePage> {
     return Scaffold(
       backgroundColor: Colors.white70,
       appBar: AppBar(
-        title: Text("Awesome ToDo"),
+        title: const Text("Awesome ToDo"),
       ),
       body: SafeArea(
         child: Container(
-          margin: EdgeInsets.all(10),
+          margin: const EdgeInsets.all(10),
           child: ListView.builder(
             itemCount: 100,
             itemBuilder: (BuildContext context, index) {
@@ -49,18 +49,22 @@ class _HomePageState extends State<HomePage> {
                   print("$index");
                 },
                 child: Card(
-                  elevation: 3,
+                  elevation: 1,
                   shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(15)
+                    borderRadius: BorderRadius.circular(15),
+                    side: const BorderSide(
+                      color: Colors.deepOrange, // Border color
+                      width: 0.7, // Border width
+                    ),
                   ),
-                  margin: EdgeInsets.only(bottom: 8),
+                  margin: const EdgeInsets.only(bottom: 8),
                   child: Padding(
                     padding: const EdgeInsets.all(8.0),
                     child: ListTile(
                       leading: CircleAvatar(
                         child: Text("$index"),
                       ),
-                      contentPadding: EdgeInsets.all(2),
+                      contentPadding: const EdgeInsets.all(2),
                       title: Text("Hello Todo"),
                     )
                   ),
