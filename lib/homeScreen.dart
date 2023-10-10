@@ -48,40 +48,72 @@ class _HomePageState extends State<HomePage> {
                           padding: const EdgeInsets.only(top: 5),
                           child: Text("17 Jan 2023 8:10:33 AM"),
                         ),
-                        trailing: Wrap(
-                          alignment: WrapAlignment.start,
-                          direction: Axis.vertical,
-                          runSpacing: 5,
-                          children: [
-                            GestureDetector(
-                              child: Tooltip(
-                                message: "Edit",
-                                preferBelow: false,
-                                child: const Icon(
-                                  Icons.edit_calendar,
-                                  color: Colors.red,
-                                ),
-                              ),
-                              // Icon for the button
-                              onTap: () {
-                                print("Edit todo");
-                              },
+                        trailing: GestureDetector(
+                          child: const Tooltip(
+                            message: "Edit",
+                            preferBelow: false,
+                            child: Icon(
+                              Icons.edit_calendar,
+                              color: Colors.red,
                             ),
-                            GestureDetector(
-                              child: Tooltip(
-                                message: "Delete",
-                                preferBelow: true,
-                                child: const Icon(
-                                  Icons.delete_forever,
-                                  color: Colors.red,
-                                ),
-                              ),
-                              // Icon for the button
-                              onTap: () {
-                                print("Delete todo");
+                          ),
+                          onTap: () {
+                            showDialog(
+                              context: context,
+                              builder: (context) {
+                                return AlertDialog(
+                                  /*
+                                  actions: [
+                                    IconButton(
+                                      onPressed: () {
+                                        Navigator.pop(context);
+                                      },
+                                      icon: Icon(Icons.close),
+                                    )
+                                  ],
+                                   */
+                                  shape: RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.circular(10),
+                                  ),
+                                  elevation: 4,
+                                  //title: Text("Actions"),
+                                  content: Container(
+                                    height: MediaQuery.sizeOf(context).height * 0.2,
+                                    child: Column(
+                                      children: [
+                                        SizedBox(
+                                          height: 50,
+                                          width: double.infinity,
+                                          child: ElevatedButton(
+                                            onPressed: () {},
+                                            style: ElevatedButton.styleFrom(
+                                                shape: RoundedRectangleBorder(
+                                                  borderRadius: BorderRadius.circular(100),
+                                                )),
+                                            child: const Text("Edit"),
+                                          ),
+                                        ),
+                                        SizedBox(height: 10,),
+                                        SizedBox(
+                                          height: 50,
+                                          width: double.infinity,
+                                          child: ElevatedButton(
+                                            onPressed: () {},
+                                            style: ElevatedButton.styleFrom(
+                                                shape: RoundedRectangleBorder(
+                                                  borderRadius: BorderRadius.circular(100),
+                                                )),
+                                            child: const Text("Delete"),
+                                          ),
+                                        ),
+
+                                      ],
+                                    ),
+                                  )
+                                );
                               },
-                            ),
-                          ],
+                            );
+                          },
                         ),
                       )),
                 ),
@@ -94,7 +126,8 @@ class _HomePageState extends State<HomePage> {
         onPressed: () {
           showModalBottomSheet(
             backgroundColor: Colors.transparent,
-            isScrollControlled: true, // Set this to true to make the content scrollable
+            isScrollControlled: true,
+            // Set this to true to make the content scrollable
             context: context,
             builder: (BuildContext context) {
               return Container(
