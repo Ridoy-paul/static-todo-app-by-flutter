@@ -11,7 +11,7 @@ class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Color(0xffd9dae0),
+      backgroundColor: const Color(0xffd9dae0),
       appBar: AppBar(
         title: const Text("Awesome ToDo"),
       ),
@@ -93,21 +93,64 @@ class _HomePageState extends State<HomePage> {
       floatingActionButton: FloatingActionButton(
         onPressed: () {
           showModalBottomSheet(
+            backgroundColor: Colors.transparent,
             context: context,
             builder: (BuildContext context) {
               return Container(
-                height: MediaQuery.sizeOf(context).height * .9,
-                padding: EdgeInsets.all(10),
-                child: Wrap(
-                  alignment: WrapAlignment.center,
-                  direction: Axis.vertical,
+                decoration: const BoxDecoration(
+                  color: Colors.white,
+                  borderRadius: BorderRadius.only(
+                    topLeft: Radius.circular(10),
+                    topRight: Radius.circular(10),
+                  ),
+                ),
+                //height: MediaQuery.sizeOf(context).height * .9,
+                padding: const EdgeInsets.all(10),
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.start,
                   children: [
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        Text("Add ToDo:")
+                        Text(
+                          "Add New TODO",
+                          style: Theme.of(context).textTheme.titleLarge,
+                        ),
+                        IconButton(
+                          onPressed: () {
+                            Navigator.pop(context);
+                          },
+                          icon: Icon(Icons.close),
+                        )
                       ],
-                    )
+                    ),
+                    Container(
+                      margin: const EdgeInsets.only(top: 10),
+                      //height: MediaQuery.sizeOf(context).height * 0.4,
+                      child: TextFormField(
+                        //keyboardType: TextInputType.multiline,
+                        maxLines: 6,
+                        decoration: const InputDecoration(
+                          hintText: "Enter Your TODO",
+                          border: OutlineInputBorder(),
+                        ),
+                      ),
+                    ),
+                    const SizedBox(
+                      height: 12,
+                    ),
+                    SizedBox(
+                      height: 50,
+                      width: double.infinity,
+                      child: ElevatedButton(
+                        onPressed: () {},
+                        style: ElevatedButton.styleFrom(
+                            shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(100),
+                        )),
+                        child: const Text("Submit"),
+                      ),
+                    ),
                   ],
                 ),
               );
