@@ -94,9 +94,11 @@ class _HomePageState extends State<HomePage> {
         onPressed: () {
           showModalBottomSheet(
             backgroundColor: Colors.transparent,
+            isScrollControlled: true, // Set this to true to make the content scrollable
             context: context,
             builder: (BuildContext context) {
               return Container(
+                margin: const EdgeInsets.only(top: 5),
                 decoration: const BoxDecoration(
                   color: Colors.white,
                   borderRadius: BorderRadius.only(
