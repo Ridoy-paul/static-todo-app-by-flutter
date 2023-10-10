@@ -13,7 +13,7 @@ class _HomePageState extends State<HomePage> {
     return Scaffold(
       backgroundColor: const Color(0xffd9dae0),
       appBar: AppBar(
-        title: const Text("Awesome ToDo"),
+        title: const Text("Task Management System"),
       ),
       body: SafeArea(
         child: Container(
@@ -62,7 +62,7 @@ class _HomePageState extends State<HomePage> {
                               context: context,
                               builder: (context) {
                                 return AlertDialog(
-                                  /*
+                                    /*
                                   actions: [
                                     IconButton(
                                       onPressed: () {
@@ -72,45 +72,58 @@ class _HomePageState extends State<HomePage> {
                                     )
                                   ],
                                    */
-                                  shape: RoundedRectangleBorder(
-                                    borderRadius: BorderRadius.circular(30),
-                                  ),
-                                  elevation: 4,
-                                  //title: Text("Actions"),
-                                  content: Container(
-                                    height: MediaQuery.sizeOf(context).height * 0.2,
-                                    child: Column(
-                                      children: [
-                                        SizedBox(
-                                          height: 50,
-                                          width: double.infinity,
-                                          child: ElevatedButton(
-                                            onPressed: () {},
-                                            style: ElevatedButton.styleFrom(
-                                                shape: RoundedRectangleBorder(
-                                                  borderRadius: BorderRadius.circular(100),
-                                                )),
-                                            child: const Text("Edit"),
-                                          ),
-                                        ),
-                                        const SizedBox(height: 10,),
-                                        SizedBox(
-                                          height: 50,
-                                          width: double.infinity,
-                                          child: ElevatedButton(
-                                            onPressed: () {},
-                                            style: ElevatedButton.styleFrom(
-                                                shape: RoundedRectangleBorder(
-                                                  borderRadius: BorderRadius.circular(100),
-                                                )),
-                                            child: const Text("Delete"),
-                                          ),
-                                        ),
-
-                                      ],
+                                    shape: RoundedRectangleBorder(
+                                      borderRadius: BorderRadius.circular(30),
                                     ),
-                                  )
-                                );
+                                    elevation: 4,
+                                    //title: Text("Actions"),
+                                    content: Container(
+                                      height:
+                                          MediaQuery.sizeOf(context).height *
+                                              0.2,
+                                      child: Column(
+                                        children: [
+                                          SizedBox(
+                                            height: 50,
+                                            width: double.infinity,
+                                            child: ElevatedButton(
+                                              onPressed: () {
+                                                showModalBottomSheet(
+                                                  backgroundColor: Colors.transparent,
+                                                  isScrollControlled: true,
+                                                  context: context,
+                                                  builder: (context) {
+                                                    return UpdateToDo();
+                                                  },
+                                                );
+                                              },
+                                              style: ElevatedButton.styleFrom(
+                                                  shape: RoundedRectangleBorder(
+                                                borderRadius:
+                                                    BorderRadius.circular(100),
+                                              )),
+                                              child: const Text("Edit"),
+                                            ),
+                                          ),
+                                          const SizedBox(
+                                            height: 10,
+                                          ),
+                                          SizedBox(
+                                            height: 50,
+                                            width: double.infinity,
+                                            child: ElevatedButton(
+                                              onPressed: () {},
+                                              style: ElevatedButton.styleFrom(
+                                                  shape: RoundedRectangleBorder(
+                                                borderRadius:
+                                                    BorderRadius.circular(100),
+                                              )),
+                                              child: const Text("Delete"),
+                                            ),
+                                          ),
+                                        ],
+                                      ),
+                                    ));
                               },
                             );
                           },
@@ -126,7 +139,8 @@ class _HomePageState extends State<HomePage> {
         onPressed: () {
           showModalBottomSheet(
             backgroundColor: Colors.transparent,
-            isScrollControlled: true, // Set this to true to make the content scrollable
+            isScrollControlled: true,
+            // Set this to true to make the content scrollable
             context: context,
             builder: (BuildContext context) {
               return const AddToDo();
@@ -164,7 +178,7 @@ class AddToDo extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               Text(
-                "Add New TODO",
+                "Add New Task",
                 style: Theme.of(context).textTheme.titleLarge,
               ),
               IconButton(
@@ -182,7 +196,7 @@ class AddToDo extends StatelessWidget {
               //keyboardType: TextInputType.multiline,
               maxLines: 6,
               decoration: const InputDecoration(
-                hintText: "Enter Your TODO",
+                hintText: "Enter Your Task",
                 border: OutlineInputBorder(),
               ),
             ),
@@ -199,7 +213,76 @@ class AddToDo extends StatelessWidget {
                   shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(100),
               )),
-              child: const Text("Submit"),
+              child: const Text("Add Task"),
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+}
+
+class UpdateToDo extends StatelessWidget {
+  const UpdateToDo({
+    super.key,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      margin: const EdgeInsets.only(top: 5),
+      decoration: const BoxDecoration(
+        color: Colors.white,
+        borderRadius: BorderRadius.only(
+          topLeft: Radius.circular(10),
+          topRight: Radius.circular(10),
+        ),
+      ),
+      //height: MediaQuery.sizeOf(context).height * .9,
+      padding: const EdgeInsets.all(10),
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.start,
+        children: [
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Text(
+                "Update Task",
+                style: Theme.of(context).textTheme.titleLarge,
+              ),
+              IconButton(
+                onPressed: () {
+                  Navigator.pop(context);
+                },
+                icon: Icon(Icons.close),
+              )
+            ],
+          ),
+          Container(
+            margin: const EdgeInsets.only(top: 10),
+            //height: MediaQuery.sizeOf(context).height * 0.4,
+            child: TextFormField(
+              //keyboardType: TextInputType.multiline,
+              maxLines: 6,
+              decoration: const InputDecoration(
+                hintText: "Enter Your Task",
+                border: OutlineInputBorder(),
+              ),
+            ),
+          ),
+          const SizedBox(
+            height: 12,
+          ),
+          SizedBox(
+            height: 50,
+            width: double.infinity,
+            child: ElevatedButton(
+              onPressed: () {},
+              style: ElevatedButton.styleFrom(
+                  shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(100),
+              )),
+              child: const Text("Update"),
             ),
           ),
         ],
