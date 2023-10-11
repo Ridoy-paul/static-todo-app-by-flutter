@@ -1,10 +1,19 @@
 import 'package:flutter/material.dart';
+import 'model/TaskBrain.dart';
 
-class AddToDoModal extends StatelessWidget {
+class AddToDoModal extends StatefulWidget {
   const AddToDoModal({
     super.key,
+    required this.onAddTap,
   });
 
+  final Function(Task) onAddTap;
+
+  @override
+  State<AddToDoModal> createState() => _AddToDoModalState();
+}
+
+class _AddToDoModalState extends State<AddToDoModal> {
   @override
   Widget build(BuildContext context) {
     return Container(

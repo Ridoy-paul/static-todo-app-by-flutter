@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'add_new_task_modal.dart';
 import 'update_task_modal.dart';
+import 'model/TaskBrain.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -10,6 +11,9 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
+
+  List<Task> taskList = [];
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -21,11 +25,12 @@ class _HomePageState extends State<HomePage> {
         child: Container(
           margin: const EdgeInsets.only(left: 10, right: 10, top: 5, bottom: 5),
           child: ListView.builder(
-            itemCount: 100,
+            itemCount: taskList.length,
             itemBuilder: (BuildContext context, index) {
               index++;
               return TaskItem(
                 index: index,
+                taskInfo: taskList[index],
               );
             },
           ),
@@ -39,7 +44,11 @@ class _HomePageState extends State<HomePage> {
             // Set this to true to make the content scrollable
             context: context,
             builder: (BuildContext context) {
-              return const AddToDoModal();
+              return AddToDoModal(
+                onAddTap: (Task task) {
+                  addTask(task);
+                },
+              );
             },
           );
         },
@@ -47,13 +56,22 @@ class _HomePageState extends State<HomePage> {
       ),
     );
   }
+
+  void addTask(Task task) {
+    setState(() {
+      taskList.add(task);
+    });
+  }
+
 }
 
 class TaskItem extends StatelessWidget {
   final index;
+  final taskInfo;
 
-  TaskItem({
+  const TaskItem({super.key,
     required this.index,
+    required this.taskInfo,
   });
 
   @override
@@ -79,7 +97,7 @@ class TaskItem extends StatelessWidget {
                 child: Text("$index"),
               ),
               contentPadding: const EdgeInsets.all(2),
-              title: Text("Hello Todo  sdfj sfk jsfk jsf jks"),
+              title: Text("${taskInfo[index].title}"),
               subtitle: Padding(
                 padding: const EdgeInsets.only(top: 5),
                 child: Text("17 Jan 2023 8:10:33 AM"),
