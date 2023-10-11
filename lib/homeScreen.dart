@@ -27,11 +27,12 @@ class _HomePageState extends State<HomePage> {
           child: ListView.builder(
             itemCount: taskList.length,
             itemBuilder: (BuildContext context, index) {
-              index++;
               return TaskItem(
                 index: index,
                 taskInfo: taskList[index],
               );
+
+
             },
           ),
         ),
@@ -94,10 +95,10 @@ class TaskItem extends StatelessWidget {
             padding: const EdgeInsets.all(5.0),
             child: ListTile(
               leading: CircleAvatar(
-                child: Text("$index"),
+                child: Text("${index + 1}"),
               ),
               contentPadding: const EdgeInsets.all(2),
-              title: Text("${taskInfo[index].title}"),
+              title: Text("${taskInfo.title}"),
               subtitle: Padding(
                 padding: const EdgeInsets.only(top: 5),
                 child: Text("17 Jan 2023 8:10:33 AM"),
