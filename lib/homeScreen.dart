@@ -58,6 +58,7 @@ class _HomePageState extends State<HomePage> {
     );
   }
 
+  // After added callback function to update state.
   void addTask(Task task) {
     setState(() {
       taskList.add(task);
@@ -101,7 +102,7 @@ class TaskItem extends StatelessWidget {
               title: Text("${taskInfo.title}"),
               subtitle: Padding(
                 padding: const EdgeInsets.only(top: 5),
-                child: Text("17 Jan 2023 8:10:33 AM"),
+                child: Text("${taskInfo.createdDateTime}"),
               ),
               trailing: GestureDetector(
                 child: const Tooltip(

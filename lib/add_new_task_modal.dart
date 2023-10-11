@@ -7,7 +7,7 @@ class AddToDoModal extends StatefulWidget {
     required this.onAddTap,
   });
 
-  final Function(Task) onAddTap;
+  final Function(Task) onAddTap; // callback function initialized.
 
   @override
   State<AddToDoModal> createState() => _AddToDoModalState();
@@ -16,8 +16,17 @@ class AddToDoModal extends StatefulWidget {
 class _AddToDoModalState extends State<AddToDoModal> {
 
   final TextEditingController taskTEController = TextEditingController(); // for textField
-  GlobalKey<FormState> _formKey = GlobalKey<
-      FormState>(); // Define Individual form key
+  final GlobalKey<FormState> _formKey = GlobalKey<FormState>(); // Define Individual form key
+
+  void _submitAddForm() {
+    Task task = Task(
+      title: taskTEController.text.trim(),
+      createdDateTime: DateTime.now(),
+      updatedDateTime: DateTime.now(),
+    );
+    widget.onAddTap(task); // Callback function call from add new page to home screen.
+    Navigator.pop(context);
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -51,7 +60,7 @@ class _AddToDoModalState extends State<AddToDoModal> {
                   onPressed: () {
                     Navigator.pop(context);
                   },
-                  icon: Icon(Icons.close),
+                  icon: const Icon(Icons.close),
                 )
               ],
             ),
@@ -67,7 +76,7 @@ class _AddToDoModalState extends State<AddToDoModal> {
                   border: OutlineInputBorder(),
                 ),
                 validator: (String? value) {
-                  if (value!.isEmpty ?? true) {
+                  if (value!.isEmpty) {
                     return "Please Enter any Task";
                   }
                   return null;
@@ -83,13 +92,7 @@ class _AddToDoModalState extends State<AddToDoModal> {
               child: ElevatedButton(
                 onPressed: () {
                   if (_formKey.currentState!.validate()) {
-                    Task task = Task(
-                      title: taskTEController.text.trim(),
-                      createdDateTime: DateTime.now(),
-                      updatedDateTime: DateTime.now(),
-                    );
-                    widget.onAddTap(task);
-                    Navigator.pop(context);
+                    _submitAddForm();
                   }
                 },
                 style: ElevatedButton.styleFrom(
