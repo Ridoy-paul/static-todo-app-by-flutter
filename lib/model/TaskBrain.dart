@@ -9,4 +9,8 @@ class Task {
     required this.updatedDateTime,
     this.readStatus = 0,
   });
+
+  static List<Task> taskList() {
+    return [];
+  }
 }

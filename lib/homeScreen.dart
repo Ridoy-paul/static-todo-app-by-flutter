@@ -12,7 +12,7 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> {
 
-  List<Task> taskList = [];
+  List<Task> taskList = Task.taskList();
 
   @override
   Widget build(BuildContext context) {
@@ -53,7 +53,7 @@ class _HomePageState extends State<HomePage> {
             },
           );
         },
-        child: Icon(Icons.add),
+        child: const Icon(Icons.add),
       ),
     );
   }
@@ -67,7 +67,7 @@ class _HomePageState extends State<HomePage> {
 
 }
 
-class TaskItem extends StatelessWidget {
+class TaskItem extends StatefulWidget {
   final index;
   final taskInfo;
 
@@ -77,10 +77,24 @@ class TaskItem extends StatelessWidget {
   });
 
   @override
+  State<TaskItem> createState() => _TaskItemState();
+}
+
+class _TaskItemState extends State<TaskItem> {
+  List<Task> taskList = Task.taskList();
+
+  void deleteTaskItem(int index) {
+    setState(() {
+      print("hello $index");
+      taskList.removeAt(index);
+    });
+  }
+
+  @override
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () {
-        print("$index");
+        //print("$index");
       },
       child: Card(
         elevation: 1,
@@ -96,13 +110,13 @@ class TaskItem extends StatelessWidget {
             padding: const EdgeInsets.all(5.0),
             child: ListTile(
               leading: CircleAvatar(
-                child: Text("${index + 1}"),
+                child: Text("${widget.index + 1}"),
               ),
               contentPadding: const EdgeInsets.all(2),
-              title: Text("${taskInfo.title}"),
+              title: Text("${widget.taskInfo.title}"),
               subtitle: Padding(
                 padding: const EdgeInsets.only(top: 5),
-                child: Text("${taskInfo.createdDateTime}"),
+                child: Text("${widget.taskInfo.createdDateTime}"),
               ),
               trailing: GestureDetector(
                 child: const Tooltip(
@@ -133,10 +147,9 @@ class TaskItem extends StatelessWidget {
                           ),
                           elevation: 4,
                           //title: Text("Actions"),
-                          content: Container(
+                          content: SizedBox(
                             height:
-                                MediaQuery.sizeOf(context).height *
-                                    0.2,
+                                MediaQuery.sizeOf(context).height * 0.2,
                             child: Column(
                               children: [
                                 SizedBox(
@@ -169,7 +182,9 @@ class TaskItem extends StatelessWidget {
                                   height: 50,
                                   width: double.infinity,
                                   child: ElevatedButton(
-                                    onPressed: () {},
+                                    onPressed: () {
+                                      deleteTaskItem(widget.index);
+                                    },
                                     style: ElevatedButton.styleFrom(
                                         shape: RoundedRectangleBorder(
                                       borderRadius:
