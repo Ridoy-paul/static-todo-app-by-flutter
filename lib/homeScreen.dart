@@ -30,6 +30,9 @@ class _HomePageState extends State<HomePage> {
               return TaskItem(
                 index: index,
                 taskInfo: taskList[index],
+                onDeleteTask: (int? index) {
+                  deleteTaskItem(index!);
+                },
               );
 
 
@@ -65,6 +68,12 @@ class _HomePageState extends State<HomePage> {
     });
   }
 
+  void deleteTaskItem(int index) {
+    setState(() {
+      taskList.removeAt(index);
+    });
+  }
+
 }
 
 class TaskItem extends StatefulWidget {
@@ -74,7 +83,10 @@ class TaskItem extends StatefulWidget {
   const TaskItem({super.key,
     required this.index,
     required this.taskInfo,
+    required this.onDeleteTask,
   });
+
+  final Function(int) onDeleteTask;
 
   @override
   State<TaskItem> createState() => _TaskItemState();
@@ -82,13 +94,6 @@ class TaskItem extends StatefulWidget {
 
 class _TaskItemState extends State<TaskItem> {
   List<Task> taskList = Task.taskList();
-
-  void deleteTaskItem(int index) {
-    setState(() {
-      print("hello $index");
-      taskList.removeAt(index);
-    });
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -183,7 +188,8 @@ class _TaskItemState extends State<TaskItem> {
                                   width: double.infinity,
                                   child: ElevatedButton(
                                     onPressed: () {
-                                      deleteTaskItem(widget.index);
+                                      widget.onDeleteTask(widget.index);
+                                      Navigator.pop(context);
                                     },
                                     style: ElevatedButton.styleFrom(
                                         shape: RoundedRectangleBorder(
