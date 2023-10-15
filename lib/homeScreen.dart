@@ -19,6 +19,7 @@ class _HomePageState extends State<HomePage> {
     return Scaffold(
       backgroundColor: const Color(0xffd9dae0),
       appBar: AppBar(
+        backgroundColor: Colors.deepPurple,
         title: const Text("Task Management System"),
       ),
       body: SafeArea(
@@ -41,6 +42,7 @@ class _HomePageState extends State<HomePage> {
         ),
       ),
       floatingActionButton: FloatingActionButton(
+        backgroundColor: Colors.deepPurple,
         onPressed: () {
           showModalBottomSheet(
             backgroundColor: Colors.transparent,
@@ -93,7 +95,7 @@ class TaskItem extends StatefulWidget {
 }
 
 class _TaskItemState extends State<TaskItem> {
-  List<Task> taskList = Task.taskList();
+  //List<Task> taskList = Task.taskList();
 
   @override
   Widget build(BuildContext context) {
@@ -106,7 +108,7 @@ class _TaskItemState extends State<TaskItem> {
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(15),
           side: const BorderSide(
-            color: Colors.deepOrange, // Border color
+            color: Colors.deepPurple, // Border color
             width: 0.7, // Border width
           ),
         ),
@@ -129,7 +131,7 @@ class _TaskItemState extends State<TaskItem> {
                   preferBelow: false,
                   child: Icon(
                     Icons.edit_calendar,
-                    color: Colors.red,
+                    color: Colors.deepPurple,
                   ),
                 ),
                 onTap: () {

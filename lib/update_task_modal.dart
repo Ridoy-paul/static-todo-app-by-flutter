@@ -32,7 +32,7 @@ class UpdateToDoModal extends StatelessWidget {
                 onPressed: () {
                   Navigator.pop(context);
                 },
-                icon: Icon(Icons.close),
+                icon: const Icon(Icons.close),
               )
             ],
           ),
@@ -57,6 +57,7 @@ class UpdateToDoModal extends StatelessWidget {
             child: ElevatedButton(
               onPressed: () {},
               style: ElevatedButton.styleFrom(
+                backgroundColor: Colors.deepPurple,
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(100),
                   )),

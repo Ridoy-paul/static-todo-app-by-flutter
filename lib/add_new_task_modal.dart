@@ -96,6 +96,7 @@ class _AddToDoModalState extends State<AddToDoModal> {
                   }
                 },
                 style: ElevatedButton.styleFrom(
+                    backgroundColor: Colors.deepPurple,
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(100),
                     )),
