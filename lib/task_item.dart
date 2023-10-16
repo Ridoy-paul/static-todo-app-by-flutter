@@ -11,10 +11,12 @@ class TaskItem extends StatefulWidget {
     required this.taskInfo,
     required this.onDeleteTask,
     required this.onTaskUpdateFromTaskItem,
+    required this.onUpdateReadStatus,
   });
 
   final Function(int) onDeleteTask;
   final Function(String) onTaskUpdateFromTaskItem;
+  final Function(bool) onUpdateReadStatus;
 
   @override
   State<TaskItem> createState() => _TaskItemState();
@@ -24,8 +26,8 @@ class _TaskItemState extends State<TaskItem> {
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: () {
-        //print("$index");
+      onLongPress: () {
+        widget.onUpdateReadStatus(widget.taskInfo.readStatus);
       },
       child: Card(
         elevation: 1,
@@ -44,7 +46,12 @@ class _TaskItemState extends State<TaskItem> {
                 child: Text("${widget.index + 1}"),
               ),
               contentPadding: const EdgeInsets.all(2),
-              title: Text("${widget.taskInfo.title}"),
+              title: Text(
+                "${widget.taskInfo.title}",
+                style: TextStyle(
+                  decoration: widget.taskInfo.readStatus? TextDecoration.lineThrough : null,
+                ),
+              ),
               subtitle: Padding(
                 padding: const EdgeInsets.only(top: 5),
                 child: Text("${widget.taskInfo.createdDateTime}"),
@@ -96,7 +103,8 @@ class _TaskItemState extends State<TaskItem> {
                                           return UpdateToDoModal(
                                             task: widget.taskInfo,
                                             onTaskUpdate: (String taskTitle) {
-                                              widget.onTaskUpdateFromTaskItem(taskTitle);
+                                              widget.onTaskUpdateFromTaskItem(
+                                                  taskTitle);
                                             },
                                           );
                                         },

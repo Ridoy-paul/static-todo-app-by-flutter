@@ -37,6 +37,9 @@ class _HomePageState extends State<HomePage> {
                 onTaskUpdateFromTaskItem: (String taskTitle) {
                   updateTask(index, taskTitle);
                 },
+                onUpdateReadStatus: (bool status) {
+                  _updateTaskReadStatus(index, status);
+                },
               );
 
 
@@ -49,7 +52,7 @@ class _HomePageState extends State<HomePage> {
         onPressed: () {
           showModalBottomSheet(
             backgroundColor: Colors.transparent,
-            isScrollControlled: true,
+            //isScrollControlled: true,
             // Set this to true to make the content scrollable
             context: context,
             builder: (BuildContext context) {
@@ -82,6 +85,12 @@ class _HomePageState extends State<HomePage> {
   void updateTask(int index, String title) {
     setState(() {
       taskList[index].title = title;
+    });
+  }
+
+  void _updateTaskReadStatus(int index, bool status) {
+    setState(() {
+      taskList[index].readStatus = status? false : true;
     });
   }
 

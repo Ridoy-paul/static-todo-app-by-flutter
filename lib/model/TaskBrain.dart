@@ -1,13 +1,13 @@
 class Task {
   String? title;
   DateTime? createdDateTime, updatedDateTime;
-  int? readStatus;
+  bool? readStatus;
 
   Task({
     required this.title,
     required this.createdDateTime,
     required this.updatedDateTime,
-    this.readStatus = 0,
+    this.readStatus = false,
   });
 
   static List<Task> taskList() {
